@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stockroom — Inventory</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============ HEADER / NAV (becomes a Pug partial) ============ -->
+  <header class="site-header">
+    <div class="wrap">
+      <a href="index.html" class="brand">STOCK<span>ROOM</span></a>
+      <nav class="nav">
+        <a href="index.html" class="active">Women</a>
+        <a href="index.html">Men</a>
+        <a href="index.html">Kids</a>
+      </nav>
+      <div class="header-actions">
+        <a href="form.html" class="btn btn--accent btn--sm">+ New product</a>
+
+        <!-- Login icon: opens the login modal -->
+        <button class="icon-btn" id="openLogin" aria-label="Sign in" title="Sign in">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none"
+               stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"></circle>
+            <path d="M4 20c0-4 4-6 8-6s8 2 8 6"></path>
+          </svg>
+        </button>
+
+        <!-- Cart icon with count badge -->
+        <button class="icon-btn" id="cartBtn" aria-label="Cart" title="Cart">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none"
+               stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="20" r="1.4"></circle>
+            <circle cx="18" cy="20" r="1.4"></circle>
+            <path d="M2 3h3l2.4 12.4a1.5 1.5 0 0 0 1.5 1.2h8.2a1.5 1.5 0 0 0 1.5-1.2L22 7H6"></path>
+          </svg>
+          <span class="cart-badge">2</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ LOGIN MODAL (opens on top of the page) ============ -->
+  <div class="modal-overlay" id="loginOverlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <button class="modal-close" id="closeLogin" aria-label="Close">&times;</button>
+
+      <h2 id="loginTitle" class="modal-title">Sign in</h2>
+      <p class="modal-sub">Welcome back. Enter your details to continue.</p>
+
+      <!-- In the real app this posts to your Express route, e.g. action="/login" method="POST" -->
+      <form id="loginForm" novalidate>
+
+        <div class="field full" style="margin-bottom:16px;">
+          <label for="loginEmail">Email</label>
+          <input class="input" id="loginEmail" name="email" type="email"
+                 placeholder="you@example.com" autocomplete="email" />
+          <span class="error-text" id="emailError" hidden></span>
+        </div>
+
+        <div class="field full" style="margin-bottom:16px;">
+          <label for="loginPassword">Password</label>
+          <input class="input" id="loginPassword" name="password" type="password"
+                 placeholder="••••••••" autocomplete="current-password" />
+          <span class="error-text" id="passwordError" hidden></span>
+        </div>
+
+        <!-- Remember me: keeps a session on the server. Does NOT store the raw password. -->
+        <label class="remember">
+          <input type="checkbox" id="rememberMe" name="remember" />
+          <span>Keep me signed in on this device</span>
+        </label>
+
+        <button type="submit" class="btn btn--accent" style="width:100%; justify-content:center; margin-top:20px;">
+          Sign in
+        </button>
+
+        <p class="modal-foot">No account yet? <a href="#">Create one</a></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <h1>The<br />Stock<em>room</em></h1>
+      <p>Every product, every unit, one source of truth. Track what's in, what's low, and what's gone.</p>
+    </div>
+  </section>
+
+  <!-- ============ TOOLBAR: search + filters ============ -->
+  <main class="wrap">
+    <div class="toolbar">
+      <span class="count">Showing <b>6</b> products</span>
+      <div class="spacer"></div>
+      <input class="input search" type="search" placeholder="Search name or SKU…" aria-label="Search products" />
+      <select class="select" aria-label="Filter by category">
+        <option value="">All categories</option>
+        <option>Outerwear</option>
+        <option>Tops</option>
+        <option>Accessories</option>
+        <option>Footwear</option>
+      </select>
+      <select class="select" aria-label="Sort products">
+        <option>Newest</option>
+        <option>Price: low to high</option>
+        <option>Price: high to low</option>
+        <option>Stock: low first</option>
+      </select>
+    </div>
+
+    <!-- ============ PRODUCT GRID (loop this <article> in Pug) ============ -->
+    <section class="grid">
+
+      <!-- CARD 1 -->
+      <article class="card">
+        <div class="thumb">01</div>
+        <span class="sku">SKU · TR-0001</span>
+        <h3>Heavyweight Boxy Tee</h3>
+        <span class="supplier">Northgate Apparel</span>
+        <div class="row">
+          <span class="price">$38.00</span>
+          <span class="badge in"><span class="dot"></span>In stock · 142</span>
+        </div>
+        <div class="actions">
+          <a href="detail.html" class="btn btn--ghost btn--sm">View</a>
+          <a href="form.html" class="btn btn--sm">Edit</a>
+        </div>
+      </article>
+
+      <!-- CARD 2 -->
+      <article class="card">
+        <div class="thumb">02</div>
+        <span class="sku">SKU · OW-0148</span>
+        <h3>Shell Windbreaker</h3>
+        <span class="supplier">Vector Outdoors</span>
+        <div class="row">
+          <span class="price">$92.00</span>
+          <span class="badge low"><span class="dot"></span>Low · 9</span>
+        </div>
+        <div class="actions">
+          <a href="detail.html" class="btn btn--ghost btn--sm">View</a>
+          <a href="form.html" class="btn btn--sm">Edit</a>
+        </div>
+      </article>
+
+      <!-- CARD 3 -->
+      <article class="card">
+        <div class="thumb">03</div>
+        <span class="sku">SKU · AC-0203</span>
+        <h3>Ripstop Cap</h3>
+        <span class="supplier">Northgate Apparel</span>
+        <div class="row">
+          <span class="price">$24.00</span>
+          <span class="badge in"><span class="dot"></span>In stock · 88</span>
+        </div>
+        <div class="actions">
+          <a href="detail.html" class="btn btn--ghost btn--sm">View</a>
+          <a href="form.html" class="btn btn--sm">Edit</a>
+        </div>
+      </article>
+
+      <!-- CARD 4 -->
+      <article class="card">
+        <div class="thumb">04</div>
+        <span class="sku">SKU · FW-0511</span>
+        <h3>Trail Runner Low</h3>
+        <span class="supplier">Stride Co.</span>
+        <div class="row">
+          <span class="price">$120.00</span>
+          <span class="badge zero"><span class="dot"></span>Out · 0</span>
+        </div>
+        <div class="actions">
+          <a href="detail.html" class="btn btn--ghost btn--sm">View</a>
+          <a href="form.html" class="btn btn--sm">Edit</a>
+        </div>
+      </article>
+
+      <!-- CARD 5 -->
+      <article class="card">
+        <div class="thumb">05</div>
+        <span class="sku">SKU · TR-0072</span>
+        <h3>Ribbed Long Sleeve</h3>
+        <span class="supplier">Vector Outdoors</span>
+        <div class="row">
+          <span class="price">$46.00</span>
+          <span class="badge in"><span class="dot"></span>In stock · 61</span>
+        </div>
+        <div class="actions">
+          <a href="detail.html" class="btn btn--ghost btn--sm">View</a>
+          <a href="form.html" class="btn btn--sm">Edit</a>
+        </div>
+      </article>
+
+      <!-- CARD 6 -->
+      <article class="card">
+        <div class="thumb">06</div>
+        <span class="sku">SKU · AC-0299</span>
+        <h3>Canvas Tote 20L</h3>
+        <span class="supplier">Stride Co.</span>
+        <div class="row">
+          <span class="price">$34.00</span>
+          <span class="badge low"><span class="dot"></span>Low · 6</span>
+        </div>
+        <div class="actions">
+          <a href="detail.html" class="btn btn--ghost btn--sm">View</a>
+          <a href="form.html" class="btn btn--sm">Edit</a>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Empty state (show when no products / no search matches) -->
+    <!--
+    <section class="empty">
+      <h3>Nothing here yet</h3>
+      <p>Add your first product to start tracking stock.</p>
+      <a href="form.html" class="btn btn--accent">+ New product</a>
+    </section>
+    -->
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>STOCKROOM · CST8326 Assignment 2</span>
+      <span>Built with Node · Express · MongoDB · Pug</span>
+    </div>
+  </footer>
+
+  <!-- ============ LOGIN MODAL SCRIPT ============ -->
+  <script>
+    const overlay   = document.getElementById('loginOverlay');
+    const openBtn   = document.getElementById('openLogin');
+    const closeBtn  = document.getElementById('closeLogin');
+    const form      = document.getElementById('loginForm');
+    const emailEl   = document.getElementById('loginEmail');
+    const passEl    = document.getElementById('loginPassword');
+    const emailErr  = document.getElementById('emailError');
+    const passErr   = document.getElementById('passwordError');
+
+    // --- Open / close the modal ---
+    function openModal()  { overlay.hidden = false; document.body.style.overflow = 'hidden'; emailEl.focus(); }
+    function closeModal() { overlay.hidden = true;  document.body.style.overflow = ''; }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    // click the dimmed background to close
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    // Esc key closes
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !overlay.hidden) closeModal(); });
+
+    // --- Live validation: show the user when something is wrong as they type ---
+    function showError(el, msgEl, message) {
+      el.closest('.field').classList.add('invalid');
+      msgEl.textContent = message;
+      msgEl.hidden = false;
+    }
+    function clearError(el, msgEl) {
+      el.closest('.field').classList.remove('invalid');
+      msgEl.hidden = true;
+    }
+
+    function validateEmail() {
+      const v = emailEl.value.trim();
+      // simple email pattern
+      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      if (v === '')      { showError(emailEl, emailErr, 'Please enter your email.'); return false; }
+      if (!ok)           { showError(emailEl, emailErr, 'That doesn’t look like a valid email.'); return false; }
+      clearError(emailEl, emailErr); return true;
+    }
+    function validatePassword() {
+      const v = passEl.value;
+      if (v === '')         { showError(passEl, passErr, 'Please enter your password.'); return false; }
+      if (v.length < 6)     { showError(passEl, passErr, 'Password must be at least 6 characters.'); return false; }
+      clearError(passEl, passErr); return true;
+    }
+
+    // validate live once the user starts typing
+    emailEl.addEventListener('input', validateEmail);
+    passEl.addEventListener('input', validatePassword);
+
+    // --- On submit: validate, then ask about saving ---
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // stop real submit for this demo
+      const okEmail = validateEmail();
+      const okPass  = validatePassword();
+      if (!okEmail || !okPass) return; // errors already shown
+
+      // Ask the user whether to save their sign-in
+      const wantsSave = confirm(
+        'Sign in successful!\n\nWould you like to stay signed in on this device?\n\n' +
+        'OK = keep me signed in\nCancel = don’t save'
+      );
+
+      if (wantsSave) {
+        alert('Got it — we’ll keep you signed in on this device.');
+        // In the real app your server sets a longer session cookie here.
+      } else {
+        alert('No problem — you’ll be signed out when you close the browser.');
+      }
+
+      closeModal();
+      form.reset();
+      clearError(emailEl, emailErr);
+      clearError(passEl, passErr);
+    });
+  </script>
+
+</body>
+</html>

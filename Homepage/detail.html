@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heavyweight Boxy Tee — Stockroom</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="index.html" class="brand">STOCK<span>ROOM</span></a>
+      <nav class="nav">
+        <a href="index.html">Women</a>
+        <a href="index.html">Men</a>
+        <a href="index.html">Kids</a>
+      </nav>
+      <div class="header-actions">
+        <a href="form.html" class="btn btn--accent btn--sm">+ New product</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ============ DETAIL VIEW ============ -->
+    <section class="detail">
+      <div class="media">01</div>
+
+      <div>
+        <span class="eyebrow">Tops · Northgate Apparel</span>
+        <h1>Heavyweight Boxy Tee</h1>
+        <span class="badge in"><span class="dot"></span>In stock · 142 units</span>
+
+        <div class="price-lg">$38.00</div>
+
+        <table class="specs">
+          <tr><th>SKU</th><td>TR-0001</td></tr>
+          <tr><th>Category</th><td>Tops</td></tr>
+          <tr><th>Supplier</th><td>Northgate Apparel</td></tr>
+          <tr><th>Quantity on hand</th><td>142</td></tr>
+          <tr><th>Unit price</th><td>$38.00</td></tr>
+          <tr><th>Last updated</th><td>Aug 1, 2026</td></tr>
+        </table>
+
+        <p style="color:var(--muted); max-width:44ch;">
+          240gsm combed cotton, dropped shoulder, pre-shrunk. Notes and
+          long-form description render here from the database.
+        </p>
+
+        <div class="cta">
+          <a href="form.html" class="btn btn--accent">Edit product</a>
+          <a href="#confirm-delete" class="btn btn--danger">Delete</a>
+          <a href="index.html" class="btn btn--ghost">Back to inventory</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DELETE CONFIRM (Delete step) ============
+         In the real app this is its own route/page, or an overlay.
+         Kept inline here as an anchor target so the flow is visible. -->
+    <section class="confirm" id="confirm-delete">
+      <h2>Delete this product?</h2>
+      <p>“Heavyweight Boxy Tee” will be permanently removed from inventory. This can’t be undone.</p>
+      <div class="row">
+        <!-- POST to /products/:id/delete on the server -->
+        <a href="index.html" class="btn btn--danger">Yes, delete it</a>
+        <a href="detail.html" class="btn btn--ghost">Cancel</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>STOCKROOM · CST8326 Assignment 2</span>
+      <span>Built with Node · Express · MongoDB · Pug</span>
+    </div>
+  </footer>
+
+</body>
+</html>

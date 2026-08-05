@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New product — Stockroom</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="index.html" class="brand">STOCK<span>ROOM</span></a>
+      <nav class="nav">
+        <a href="index.html">Women</a>
+        <a href="index.html">Men</a>
+        <a href="index.html">Kids</a>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html" class="btn btn--ghost btn--sm">Cancel</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap form-page">
+
+    <!-- Heading swaps to "Edit product" when the form is pre-filled -->
+    <h1>New product</h1>
+    <p class="lead">Fields marked * are required. Values persist to MongoDB on save.</p>
+
+    <!-- Example server-side error summary (render only when validation fails) -->
+    <!--
+    <div class="alert">Please fix the highlighted fields before saving.</div>
+    -->
+
+    <div class="form-card">
+      <!--
+        In Express/Pug:
+          action="/products"            method="POST"   (Create)
+          action="/products/:id?_method=PUT" method="POST" (Update)
+        Pre-fill each value with product.field when editing.
+      -->
+      <form action="#" method="post" novalidate>
+
+        <div class="form-grid">
+
+          <div class="field full">
+            <label for="name">Product name *</label>
+            <input class="input" id="name" name="name" type="text"
+                   placeholder="Heavyweight Boxy Tee" required maxlength="80" />
+          </div>
+
+          <div class="field">
+            <label for="sku">SKU *</label>
+            <input class="input" id="sku" name="sku" type="text"
+                   placeholder="TR-0001" required pattern="[A-Za-z0-9\-]+" />
+            <span class="hint">Letters, numbers and dashes only.</span>
+          </div>
+
+          <div class="field">
+            <label for="category">Category *</label>
+            <select class="select" id="category" name="category" required>
+              <option value="" disabled selected>Choose one…</option>
+              <option>Outerwear</option>
+              <option>Tops</option>
+              <option>Accessories</option>
+              <option>Footwear</option>
+            </select>
+          </div>
+
+          <!-- Example of a field in the INVALID state (validation demo) -->
+          <div class="field invalid">
+            <label for="price">Unit price (CAD) *</label>
+            <input class="input" id="price" name="price" type="number"
+                   min="0" step="0.01" placeholder="38.00" required value="-5" />
+            <span class="error-text">Price must be zero or greater.</span>
+          </div>
+
+          <div class="field">
+            <label for="quantity">Quantity on hand *</label>
+            <input class="input" id="quantity" name="quantity" type="number"
+                   min="0" step="1" placeholder="142" required />
+          </div>
+
+          <div class="field full">
+            <label for="supplier">Supplier *</label>
+            <input class="input" id="supplier" name="supplier" type="text"
+                   placeholder="Northgate Apparel" required maxlength="80" />
+          </div>
+
+          <div class="field full">
+            <label for="notes">Description / notes</label>
+            <textarea class="textarea" id="notes" name="notes"
+                      placeholder="Material, fit, care instructions…"></textarea>
+            <span class="hint">Optional. Shown on the product detail page.</span>
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn--accent">Save product</button>
+          <a href="index.html" class="btn btn--ghost">Cancel</a>
+        </div>
+
+      </form>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>STOCKROOM · CST8326 Assignment 2</span>
+      <span>Built with Node · Express · MongoDB · Pug</span>
+    </div>
+  </footer>
+
+</body>
+</html>
