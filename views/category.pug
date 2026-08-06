@@ -1,0 +1,22 @@
+extends layout
+include mixins/product-card
+
+block content
+  .wrap
+    .toolbar
+      span.count= heading
+      if products
+        span.count &nbsp;(#{products.length})
+
+    if error
+      .alert= error
+
+    if products && products.length
+      .grid
+        each product in products
+          +productCard(product, stockBadge)
+    else
+      .empty
+        h3 Nothing here yet
+        p No products have been added to this category.
+        a.btn.btn--ghost(href='/') Back home
