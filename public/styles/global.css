@@ -135,7 +135,12 @@ img { max-width: 100%; display: block; }
 
 /* ---------- Hero strip ---------- */
 .hero {
-  background: linear-gradient(180deg, var(--panel), var(--white));
+  background-image: url('https://images.pexels.com/photos/38266018/pexels-photo-38266018.jpeg?auto=compress&cs=tinysrgb&w=1600'), linear-gradient(180deg, var(--panel), var(--white)) ;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--white);
+  /* background: linear-gradient(180deg, var(--panel), var(--white)); */
   border-bottom: 1px solid var(--line);
 }
 .hero .wrap {
