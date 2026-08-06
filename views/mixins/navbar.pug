@@ -3,24 +3,10 @@ mixin navbar(brandName, navItems, activePath)
     a.header-logo(href='/')
       img(src='/favicon/camel-logo.jpg', alt='Logo')
       span= brandName
-    ul.nav
+    ul.nav-list
       each item in navItems
         li
-          a(
+          a.nav-link(
             href=item.url
             class={ active: activePath === item.url }
           )= item.label
-
-//- Define data in the unbuffered JavaScript block
--
-  const menu = [
-    { label: 'Home', url: '/' },
-    { label: 'Men', url: '/men' },
-    { label: 'Women', url: '/women' },
-    { label: 'Kids', url: '/kids' },
-    { label: 'About', url: '/about' },
-    { label: 'Contact', url: '/contact' }
-  ];
-
-//- Call the mixin
-+navbar('The Camel Road', menu, activePath)

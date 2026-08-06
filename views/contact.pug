@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  .wrap.form-page
+    h1 Contact us
+    p.lead Questions about an order or a product? Send us a note.
+
+    .form-card
+      form.form-grid(method='POST', action='/contact')
+        .field.full
+          label(for='name') Name
+          input.input#name(type='text', name='name', placeholder='Jane Doe', required)
+        .field.full
+          label(for='email') Email
+          input.input#email(type='email', name='email', placeholder='jane@example.com', required)
+        .field.full
+          label(for='message') Message
+          textarea.textarea#message(name='message', rows=5, placeholder='How can we help?', required)
+        .form-actions.full
+          button.btn.btn--accent(type='submit') Send message

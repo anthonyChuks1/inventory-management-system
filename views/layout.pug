@@ -1,0 +1,18 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title= title ? title + ' · The Camel Road' : 'The Camel Road'
+    link(rel='icon', href='/favicon/camel-logo.jpg')
+    link(rel='stylesheet', href='/styles/global.css')
+  body
+    header.site-header
+      .wrap
+        include partials/header
+    main
+      block content
+    footer.site-footer
+      .wrap
+        span &copy; #{new Date().getFullYear()} The Camel Road
+        span Built for the open desert. Free shipping over $75.

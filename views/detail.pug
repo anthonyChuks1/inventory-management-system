@@ -1,0 +1,55 @@
+extends layout
+
+block content
+  .wrap
+    .detail
+      .media
+        if product.images && product.images.length
+          img(src=product.images[0], alt=product.name)
+        else
+          span= product.name.charAt(0).toUpperCase()
+
+      div
+        .eyebrow= product.category ? product.category.name : 'Uncategorized'
+        h1= product.name
+        p= product.description
+
+        .price-lg $#{product.unitPrice.toFixed(2)}
+        span.badge(class=badge.cls)
+          span.dot
+          = badge.label
+
+        table.specs
+          tr
+            th Supplier
+            td= product.supplier
+          tr
+            th Category
+            td= product.category ? product.category.name : 'Uncategorized'
+
+        if variants && variants.length
+          h3 Available options
+          table.specs
+            tr
+              th SKU
+              th Color
+              th Size
+              th Extra
+              th In stock
+            each variant in variants
+              tr
+                td= variant.SKU
+                td= variant.color || '—'
+                td= variant.size || '—'
+                td
+                  if variant.additionalPrice
+                    | +$#{variant.additionalPrice.toFixed(2)}
+                  else
+                    | —
+                td= variant.quantity
+        else
+          p No size/color variants have been added for this product yet.
+
+        .cta
+          a.btn.btn--accent(href='#') Add to cart
+          a.btn.btn--ghost(href='javascript:history.back()') Back

@@ -1,12 +1,29 @@
+extends layout
+include mixins/product-card
 
-doctype html
-html(lang='en')
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/styles/global.css')
-  body
-    include mixins/navbar
-    h1= title
-    //- include mixins/detail-card
-    //- +detailCard({ name: 'Sample Product', description: 'This is a sample product.', price: 19.99, image: '/images/sample-product.jpg' })
+block content
+  section.hero
+    .wrap
+      div
+        h1
+          | Gear built for
+          br
+          em the long road
+        p Durable, weather-ready clothing for men, women and kids. Designed to move, made to last.
+      a.btn.btn--accent(href='/products') Shop all products
+
+  .wrap
+    if error
+      .alert= error
+
+    h2.toolbar
+      span.count Featured Products
+
+    if products && products.length
+      .grid
+        each product in products
+          +productCard(product, stockBadge)
+    else
+      .empty
+        h3 No products yet
+        p Check back soon, or add some products to your catalog.

@@ -1,0 +1,19 @@
+mixin productCard(product, stockBadge)
+  - const badge = stockBadge(product.totalStock)
+  .card
+    a.thumb(href=`/products/${product._id}`)
+      if product.images && product.images.length
+        img(src=product.images[0], alt=product.name)
+      else
+        span= product.name.charAt(0).toUpperCase()
+    .sku= product.category ? product.category.name : ''
+    h3
+      a(href=`/products/${product._id}`)= product.name
+    .supplier by #{product.supplier}
+    .row
+      .price $#{product.unitPrice.toFixed(2)}
+      span.badge(class=badge.cls)
+        span.dot
+        = badge.label
+    .actions
+      a.btn.btn--accent(href=`/products/${product._id}`) View
