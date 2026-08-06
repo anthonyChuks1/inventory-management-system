@@ -1,8 +1,12 @@
-doctype 
-html
+
+doctype html
+html(lang='en')
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/styles/global.css')
   body
+    include mixins/navbar
     h1= title
+    //- include mixins/detail-card
+    //- +detailCard({ name: 'Sample Product', description: 'This is a sample product.', price: 19.99, image: '/images/sample-product.jpg' })
