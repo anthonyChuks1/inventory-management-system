@@ -95,6 +95,7 @@ async function seed() {
           color,
           size,
           additionalPrice: 0,
+          //random quantity between 0 and 19 to simulate stock levels
           quantity: Math.floor(Math.random() * 20), // 0-19, so some show low/out of stock
         });
         skuCounter++;

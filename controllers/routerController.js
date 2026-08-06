@@ -127,7 +127,9 @@ exports.productDetail = async (req, res) => {
       return res.status(404).render("404", { title: "Not found" });
     }
 
-    const variants = await ProductVariant.find({ product: rawProduct._id }).lean();
+    const variants = await ProductVariant.find({
+      product: rawProduct._id,
+    }).lean();
     const totalStock = variants.reduce((sum, v) => sum + v.quantity, 0);
 
     const product = {
