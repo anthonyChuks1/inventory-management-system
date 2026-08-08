@@ -15,6 +15,7 @@ async function disconnectDB() {
   console.log("Disconnected from MongoDB");
 }
 
+
 const categorySchema = new mongoose.Schema(
   {
     name: { type: String, required: true, unique: true, trim: true },
@@ -77,4 +78,28 @@ const Product = mongoose.model("Product", productSchema);
 const ProductVariant = mongoose.model("ProductVariant", productVariantSchema);
 const Category = mongoose.model("Category", categorySchema);
 
-module.exports = { Product, Category, ProductVariant, connectDB, disconnectDB };
+//Removes 1 from the stock of an item, to be used when a user buys an item.
+async function decrementStock(varientID){
+
+    return await ProductVariant.findOneAndUpdate(
+        {_id: varientID, quantity: {$gt: 0}},
+        {$inc: {quantity: -1}},
+        {new: true}
+    );
+}
+
+//This deletes a single variant, not any variants, so as if you're removing a shirt from being available in small.
+async function deleteVariant(varientID){
+  return await ProductVariant.findByIdAndDelete(varientID);
+}
+
+//This deletes a product and all its variants entirely.
+async function deleteVariants(productID){
+  await ProductVariant.deleteMany({product: productID});
+
+  return await Product.findByIdAndDelete(productID);
+
+
+}
+module.exports = { Product, Category, ProductVariant, connectDB, disconnectDB, decrementStock, deleteVariant, deleteVariants };
+
