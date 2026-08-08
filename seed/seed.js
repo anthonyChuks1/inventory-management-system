@@ -6,6 +6,9 @@ const {
   ProductVariant,
   connectDB,
   disconnectDB,
+  decrementStock,
+  deleteVariant,
+  deleteVariants,
 } = require("../models/schema");
 
 const PLACEHOLDER_IMG = "https://placehold.co/600x750?text=Camel+Road";
@@ -95,18 +98,32 @@ async function seed() {
           color,
           size,
           additionalPrice: 0,
-          //random quantity between 0 and 19 to simulate stock levels
           quantity: Math.floor(Math.random() * 20), // 0-19, so some show low/out of stock
         });
         skuCounter++;
       }
     }
   }
-  await ProductVariant.create(variantDocs);
+  const savedVariants = await ProductVariant.create(variantDocs);
 
   console.log(
     `Seeded ${products.length} products, ${variantDocs.length} variants, 3 categories.`
   );
+
+  //This specifically deletes the Sahara Windbreaker product and all its variants
+  await deleteVariants(products[3]._id);
+
+  //This specifically deletes the variant size medium from the Dune Runner Tee's sand colour.
+
+  //Getting specificly Dune Runner.
+  const duneRunner = products.find(p => p.name === "Dune Runner Tee");
+
+  //Isolating the variant by the size.
+  const mediumVariant = savedVariants.find(v => v.product.equals(duneRunner._id) && v.size == "M");
+
+  //Deleting that size by the ID.
+  await deleteVariant(mediumVariant._id);
+
   await disconnectDB();
   await mongoose.disconnect();
 }
